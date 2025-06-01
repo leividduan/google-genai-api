@@ -30,7 +30,7 @@ fastify.post('/generate-text', async (request, reply) => {
 
 // Audio generation endpoint
 fastify.post('/generate-audio', async (request, reply) => {
-  const { text } = request.body as { text?: string };
+  const { text, voice } = request.body as { text?: string, voice?: string };
 
   if (!text) return reply.status(400).send({ error: 'Text is required' });
 
@@ -43,7 +43,7 @@ fastify.post('/generate-audio', async (request, reply) => {
         speechConfig: {
           languageCode: 'pt-br',
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Kore' },
+            prebuiltVoiceConfig: { voiceName: voice ?? 'Kore' },
           },
         },
       },
